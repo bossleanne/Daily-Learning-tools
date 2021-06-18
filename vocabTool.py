@@ -4,7 +4,6 @@ import re
 import csv
 from dailyVocab import test
 import os
-import sys
 
 def takeInput(df):
     # Select first column of the dataframe as a series
