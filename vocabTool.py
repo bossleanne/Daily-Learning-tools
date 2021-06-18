@@ -4,6 +4,7 @@ import re
 import csv
 from dailyVocab import test
 import os
+import sys
 
 def takeInput(df):
     # Select first column of the dataframe as a series
@@ -42,11 +43,15 @@ def takeInput(df):
 
 
 
+
 def main():
     dir_path = os.getcwd()
     df = pd.read_csv(dir_path+'/Book1.csv', header=None)
     takeInput(df)
     dftest = pd.read_csv(dir_path+'/' + str(datetime.now().date()) + '.csv', header=None, index_col=None)
-    print('------------------------')
-    test(dftest)
+
+    TestFLag = input("""
+    Do you want to start today's test? Enter y or n to continue\n
+    """)
+    test(dftest) if TestFLag == 'y' else exit()
 main()
