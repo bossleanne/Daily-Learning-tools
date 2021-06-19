@@ -3,14 +3,8 @@ import random
 from datetime import datetime
 import os
 
-
-wrong_list = set()
-
-def self_test(listTodo, word_dic):
-    # shuffle the list
-    random.shuffle(listTodo)
+def self_test(wrong_list,listTodo, word_dic):
     answer = ''
-
     ##SECOND ROUND
     for i in listTodo:
         print(i)
@@ -33,7 +27,7 @@ def self_test(listTodo, word_dic):
         print(wrong_list)
 
     if wrong_list:
-        self_test(list(wrong_list), word_dic)
+        self_test(wrong_list,list(wrong_list), word_dic)
 
 
 def test(df):
@@ -41,7 +35,13 @@ def test(df):
     listTodo = df[0]
     dfNew = df.rename(columns={0: 'zero', 1: 'one'})
     word_dic = pd.Series(dfNew.one.values, index=dfNew.zero).to_dict()
-    self_test(listTodo, word_dic)
+
+    #store wrong value
+    wrong_list = set()
+
+    # shuffle the list
+    random.shuffle(listTodo)
+    self_test(wrong_list,listTodo, word_dic)
 
 def main():
     dir_path = os.getcwd()
