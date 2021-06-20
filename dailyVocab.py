@@ -21,6 +21,7 @@ def self_test(wrong_list,listTodo, word_dic):
             answer = input()
 
     if not wrong_list:
+        print('\n')
         for i in word_dic.values():
             print(i)
     else:

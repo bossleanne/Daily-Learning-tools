@@ -1,9 +1,9 @@
 import glob
 import pandas as pd
-from dailyVocab import self_test
+from dailyVocab import self_test,test
 
-def combine():
-    all_filenames = [i for i in glob.glob('*-*.csv')]
+def combine(all_filenames):
+    # all_filenames = [i for i in glob.glob('*-*.csv')]
 
     #combine all files in the list
     colnames=['CH', 'EN']
@@ -39,12 +39,33 @@ def random_test(total_words):
             random_test(total_words)
 
 def print_out():
-    total_words = combine()
-    print(f'''
-    How many words do you want to test it out today?
-    There are total {len(total_words)}.
-    Enter the number e.g 30, or any character to test out all words.''')
-    random_test(total_words)
+    all_filenames = sorted([i for i in glob.glob('*-*.csv')])
+    dic = {v: k for v, k in enumerate(all_filenames)}
+    total_words = combine(all_filenames)
+
+    print('''
+It's revision time!
+Here are two revision mode:
+1. Extract Revisions Made on a Specific Date
+2. Test out all possible words that studied before
+Enter your preferred revision mode:''')
+    mode = input()
+
+    if mode == '2':
+        print(f'''
+There are total {len(total_words)} words.
+How many words do you want to be tested today?
+Enter the number e.g 30, or any character to test out all words.''')
+        random_test(total_words)
+    elif mode == '1':
+        print(f'Here are words list: {dic}. \nWhich day do you want to revise?')
+        dayList = input()
+        df = pd.read_csv(dic[int(dayList)], header=None)
+        test(df)
+    else:
+        print(' Invalid number')
+        print_out()
+
 
 if __name__ == '__main__':
     print_out()

@@ -49,8 +49,7 @@ def main():
     takeInput(df)
     dftest = pd.read_csv(dir_path+'/' + str(datetime.now().date()) + '.csv', header=None, index_col=None)
 
-    TestFLag = input("""
-    Do you want to start today's test? Enter y or n to continue\n
+    TestFLag = input("""Do you want to start today's test? Enter y or n to continue\n
     """)
     test(dftest) if TestFLag == 'y' else exit()
 main()
