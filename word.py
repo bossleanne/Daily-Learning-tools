@@ -1,7 +1,6 @@
 import pandas as pd
 import sys
 import re
-from collections import Counter
 
 
 def self_test(w,wordList):
@@ -29,12 +28,12 @@ def print_key_value(dct):
 
 def main():
     #read in csv and convert them into two dictionary
-    data = pd.read_csv("cp.csv")
+    data = pd.read_csv(sys.argv[1])
     wordDic = data.to_dict('list')
     headingDic = {v: k for v, k in enumerate(list(data.columns))}
     print_key_value(headingDic)
 
-    test = input('Enter your choice: ').lower()
+    test = input('Enter your choice: "Y" for all, any number for range: ').lower()
 
     if test == 'y':
         for k,v in wordDic.items():
